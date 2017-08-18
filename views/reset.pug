@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  #wrapper
+    .content-header
+      h1= title
+    .content-body
+      form(method="POST")
+        label(for="password") New Password
+        input(type="password" name="password")
+        label(for="password") Confirm New Password
+        input(type="password" name="password-confirm")
+        button(type="submit") Set New Password
+                      
+  script pageVar = 'p-login';

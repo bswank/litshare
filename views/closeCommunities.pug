@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        ul
+          li
+            a(href="/communities/") My Communities
+          li
+            a(href="/communities/all") All Communities
+          li
+            a(href="") Find Communities
+          li
+            a#createCommunityModal--trigger Create a Community
+      .clear
+    .content-body
+      .communities
+        each community in communities            
+          .community
+            .left
+              a(href=`/communities/${community.slug}`)
+                h2= community.name
+              p= community.description.split(' ').slice(0, 25).join(' ')
+              p.location= community.location.address
+                i.fa.fa-map-marker
+            .right
+              - if (f.isMember(user, community))
+                a(href=`/communities/${community.slug}/`)
+                  button.ind Open
+              - else
+                if community.private == false
+                  form(action=`/communities/${community._id}/join` method="POST")
+                    button(type="submit") Join
+                  a(href=`/communities/${community.slug}`)
+                    button.ind.ml(type="submit") View
+                else
+                  a(href="")
+                    button.pos Request to Join
+        
+  script pageVar = '.p-communities';

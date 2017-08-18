@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        ul
+          li
+            a.current(href="/communities/") My Communities
+          li
+            a(href="/communities/search") Find Communities
+      .clear
+    .content-body
+      .search
+        input.search--input(type="text" name="search")
+        .searchResults
+              
+  script pageVar = '.p-communities';

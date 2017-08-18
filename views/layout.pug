@@ -1,0 +1,73 @@
+doctype html
+html
+  head
+    title #{title || `Error ${status || '500'}`} | #{h.siteName}
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" href="/css/style.css")
+    //- link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i" rel="stylesheet")
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+  body
+    include ./mixins/modals
+    script let pageVar = '';
+    block header
+      header
+        .inner
+          span LitShare
+            i.fa.fa-bookmark-o
+          nav
+            ul
+              if !user
+                li.user
+                  a.p-signup(href="/signup") Sign Up
+                li.user
+                  a.p-login(href="/login") Log In
+              else
+                li
+                  a.p-dashboard(href="/") Dashboard
+                li
+                  a.p-library(href="") Library
+                li
+                  a.p-communities(href="/communities/") Communities
+                li.user.user-menu-toggle
+                  a= user.name
+                    i.fa.fa-chevron-down.user-name-arrow
+                  .user-menu
+                    .box-triangle
+                    ul
+                      li
+                        a(href="/account") Account
+                          i.fa.fa-user
+                      li
+                        a(href="") Help
+                          i.fa.fa-question
+                      li
+                        a(href="/logout") Log Out
+                          i.fa.fa-sign-out
+                li.user.user-notifications-toggle
+                  a
+                    i.fa.fa-bell-o.user-notifications-bell
+                  .user-notifications
+                    .box-triangle
+                    ul
+                      li
+                        a hello
+                      li 
+                        a Testing
+        .clear
+
+    block messages
+      if locals.flashes
+        - const categories = Object.keys(locals.flashes)
+        each category in categories
+          each message in flashes[category]
+            .flash(class=`flash--${category}`) #{message}
+    block content
+      
+    block scripts
+      script(src="https://use.fontawesome.com/eabed3084c.js")
+      script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+      script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8Mn28oU6s1iUN-KFtKYzuEybTF7-r_ps&libraries=places")
+      script(src="https://unpkg.com/axios/dist/axios.min.js")
+      script(src="https://cdn.jsdelivr.net/dompurify/0.8.9/purify.min.js")
+      script(src="/js/scripts.js" charset="utf-8")

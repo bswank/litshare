@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  +editCommunityModal()
+  +leaveCommunityModal()
+  +deleteCommunityModal()  
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        ul
+          li
+            a#leaveCommunityModal--trigger Leave Community
+    .content-body
+      h2 Description
+      p= community.description
+      hr
+      h2 Location
+      p= community.location.address
+      hr
+      h2 Admission
+      if community.private === false
+        p This community is open to the public. Anyone may join.
+      else
+        p This community is private. Anyone may request to join, but new members require approval from an adminisrator.
+      - if (f.isAdmin(user, community))
+        hr
+        button#editCommunityModal--trigger.nm Edit Community
+        button#deleteCommunityModal--trigger.neg.ml.nm Delete
+                      
+  script pageVar = '.p-communities';

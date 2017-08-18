@@ -1,0 +1,25 @@
+extends layout
+
+block modals
+  //- #wrapper--modal
+    .modal test
+
+block content
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        
+    .content-body
+      form(action="/signup" method="POST")
+        label(for="name") Name
+        input(type="text" name="name" required)
+        label(for="email") Email Address
+        input(type="email" name="email" required)
+        label(for="password") Password
+        input(type="password" name="password" required)
+        label(for="password") Confirm Password
+        input(type="password" name="password-confirm" required)
+        button(type="submit") Sign Up
+                      
+  script pageVar = '.p-signup';

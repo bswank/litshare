@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  +newCommunityModal()
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        ul
+          li
+            a(href="/communities/") My Communities
+          li
+            a(href="/communities/all") All Communities
+          li
+            a(href="/communities/search") Find Communities
+          li
+            a#createCommunityModal--trigger Create a Community
+      .clear
+    .content-body
+      .communities
+        each community in communities
+          .community
+            .left
+              a(href=`/communities/${community.slug}`)
+                h2= community.name
+              p= community.description.split(' ').slice(0, 25).join(' ')
+              p.location= community.location.address
+                i.fa.fa-map-marker
+            .right
+              a(href=`/communities/${community.slug}`)
+                button.ind(type="submit") View
+      
+  script pageVar = '.p-communities';

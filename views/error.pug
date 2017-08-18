@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  #wrapper
+    .content-header
+      h1 Error #{status || '500'}
+      .clear
+    .content-body
+      pre!= stackHighlighted

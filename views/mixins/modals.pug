@@ -1,0 +1,90 @@
+mixin newCommunityModal()
+  .modal-wrapper#createCommunityModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Create a Community
+          p Be specific and unique. Remember, LitShare Communities are based on real-life communities.
+        .modal-body.community-form
+          form(action=`/communities/new` method="POST")
+            label(for="Name") Name
+            input(type="text" name="name" autocomplete="off" placeholder="Community Name")
+            p.helper
+              small Choose a unique, descriptive name.
+            label(for="Description") Description
+            textarea(name="description" rows="5" placeholder="Community Description")
+            p.helper
+              small Describe the specific local context or community.
+            label(for="Location") Location
+            input(type="text" id="address" name="location[address]" placeholder="City, State, Province, or Region")
+            p.helper
+              small Specify the community's general location.
+            input.hidden(type="text" id="lng" name="location[coordinates][0]" hidden)
+            input.hidden(type="text" id="lat" name="location[coordinates][1]" hidden)
+            label(for="Admission") Admission
+            select(name="private")
+              option(value="false") Public (Anyone may request to join)
+              option(value="true") Private (Invitation only)
+            p.helper
+              small Choose a way users will join.
+            button.submit(type="submit") Save Community
+            button.ind.ml.cancel(type="button") Cancel
+            
+mixin editCommunityModal()
+  .modal-wrapper#editCommunityModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Edit #{community.name}
+        .modal-body.community-form
+          form(action=`/communities/${community._id}/edit` method="POST")
+            label(for="Name") Name
+            input(type="text" name="name" value=(community && community.name) autocomplete="off" placeholder="Community Name")
+            p.helper
+              small Choose a unique, descriptive name.
+            label(for="Description") Description
+            textarea(name="description" rows="3" placeholder="Community Description")= community && community.description
+            p.helper
+              small Describe the specific local context or community.
+            label(for="Location") Location
+            input(type="text" id="address" name="location[address]" placeholder="City, State, Province, or Region" value=(community && community.location.address))
+            p.helper
+              small Specify the community's general location.
+            input.hidden(type="text" id="lng" name="location[coordinates][0]" value=(community && community.location.coordinates[0]) hidden)
+            input.hidden(type="text" id="lat" name="location[coordinates][1]" value=(community && community.location.coordinates[1]) hidden)
+            label(for="Admission") Admission
+            select(name="private")
+              if community && community.private == true
+                option(value="true") Private (Invitation only)
+                option(value="false") Public (Anyone may request to join)
+              else
+                option(value="false") Public (Anyone may request to join)
+                option(value="true") Private (Invitation only)
+            p.helper
+              small Choose a way users will join.
+            button.submit(type="submit") Save Changes
+            button.ind.ml.cancel(type="button") Cancel
+            
+mixin deleteCommunityModal()            
+  .modal-wrapper#deleteCommunityModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Please Conifrm
+          p This action cannot be undone. Seriously.
+        .modal-body
+          form(action=`/communities/${community._id}/delete` method="POST")
+            button.neg.nm(type="submit") Delete Community
+            button.ind.cancel.nm.ml(type="button") Cancel
+            
+mixin leaveCommunityModal()            
+  .modal-wrapper#leaveCommunityModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Please Conifrm
+          p Do you really want to leave #{community.name}? You can be a part of as many communities as you like for free.
+        .modal-body
+          form(action=`/communities/${community._id}/leave` method="POST")
+            button.nm(type="submit") Leave Community
+            button.ind.cancel.nm.ml(type="button") Cancel

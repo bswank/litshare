@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        ul
+          li
+            a(href="") First Item
+          li
+            a(href="") Second Item
+    .clear
+    .content-body
+      pre= h.dump(locals)
+  script pageVar = '.p-dashboard';

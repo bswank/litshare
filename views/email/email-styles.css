@@ -1,0 +1,139 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+a, p, li, h1, h2, h3, h4, h5, h6, input, textarea, button, span, div, pre, code, select {
+	font-family: 'Lato', sans-serif;
+  color: #444;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+small {
+  font-size: 12px;
+}
+
+a {
+  color: #0353a4;
+  text-decoration: underline;
+}
+
+
+a.button {
+	display: inline-block;
+	border-radius: 2px;
+	background-color: #0353a4;
+	color: #fff;
+	font-size: 14px;
+	padding: 10px 25px;
+	margin-top: 18px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+strong {
+  font-weight: bold;
+}
+
+div#wrapper {
+  background-color: #fafafa;
+  width: 100%;
+  border: 25px solid #fafafa;
+}
+
+div#container {
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto !important;
+}
+
+div#body,
+div#footer {
+  width: 100%;
+  padding: 25px;
+}
+
+div#body {
+  padding-top: 35px;
+  padding-bottom: 35px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+div#footer {
+  background-color: #0353a4;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+div#footer p {
+  color: #fff;
+}
+
+div#header {
+  width: 100%;
+  background-color: #fafafa;
+}
+
+div#header span {
+  display: block;
+  text-align: center;
+	padding: 25px;
+	font-weight: 700;
+	font-size: 16px;
+	color: #0353a4;
+}
+
+div#post-footer {
+  background-color: #fafafa;
+  padding: 25px;
+}
+
+div#post-footer p {
+  color: #aaa;
+  font-weight: lighter;
+  line-height: 1.2;
+}
+
+div#post-footer p a {
+  color: #bbb;
+  font-weight: lighter;
+}
+
+p.sig {
+  color: #777;
+  margin-bottom: 0;
+  padding-top: 10px;
+}

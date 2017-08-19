@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mail = require('./handlers/mail');
 
 // import environmental variables from our variables.env file
 require('dotenv').config({ path: 'variables.env' });

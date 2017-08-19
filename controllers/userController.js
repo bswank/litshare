@@ -23,7 +23,6 @@ exports.validateSignup = (req, res, next) => {
   req.checkBody('password', 'Password is required.').notEmpty();
   req.checkBody('password-confirm', 'Confirmed password is required.').notEmpty();
   req.checkBody('password-confirm', 'Your passwords must match.').equals(req.body.password);
-
   const errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors.map(err => err.msg));
@@ -44,38 +43,13 @@ exports.saveNewUser = async (req, res, next) => {
   next();
 };
 
-// exports.editUser = async (req, res) => {
-//   req.body.location.type = 'Point';
-//   const user = await User.findOneAndUpdate({ _id: req.user.id }, req.body, {
-//     new: true, // return the new db item instead the old one (default gives the old data)
-//     runValidators: true, // re-run validators
-//     context: 'query'
-//   }).exec(); // execute
-//   req.flash('success', `Successfully updated profile.`);
-//   res.redirect(`/account`);
-// };
-
 exports.editUser = async (req, res) => {
-
   req.body.location.type = 'Point';
   const user = await User.findOneAndUpdate({ _id: req.user._id }, req.body, {
-    new: true, // return the new db item instead the old one (default gives the old data)
-    runValidators: true, // re-run validators
+    new: true,
+    runValidators: true,
     context: 'query'
-  }).exec(); // execute
-
-  // const updates = {
-  //   name: req.body.name,
-  //   email: req.body.email,
-  //   bio: req.body.bio,
-  //   location: req.body.location,
-  // };
-
-  // const user = await User.findOneAndUpdate(
-  //   { _id: req.user._id },
-  //   { $set: updates },
-  //   { new: true, runValidators: true, context: 'query' }
-  // );
+  }).exec();
   req.login(user);
   req.flash('success', 'Updated.')
   res.redirect('/account');
@@ -87,44 +61,30 @@ exports.account = (req, res) => {
   });
 };
 
-// Add community to user when user joins community
 exports.postJoinCommunity = async (req, res) => {
-
   const user = await User.findOne({
     _id: req.user._id
   }).exec();
-
   const community = await Community.findOne({
     _id: req.params.id
   }).exec();
-
   user.communities.push(community._id);
   await user.save();
-
   req.flash('success', `You joined the community.`);
   res.redirect(`/communities/${community.slug}`);
-
 };
 
-// Remove community from user when user leaves community
 exports.postLeaveCommunity = async (req, res) => {
-
   const user = await User.findOne({
     _id: req.user._id
   }).exec();
-
   const community = await Community.findOne({
     _id: req.params.id
   }).exec();
-
   user.communities.pull(community._id);
   await user.save();
-
-  // Remove user from community as admin when user leaves
   community.admin.pull(user._id);
   await community.save();
-
   req.flash('success', `You left the community.`);
   res.redirect(`/communities/${community.slug}`);
-
 };

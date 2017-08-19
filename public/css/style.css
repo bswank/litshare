@@ -427,19 +427,23 @@ button.ind {
 	color: #444;
 }
 
-button:hover {
+button:hover,
+button:focus {
 	background-color: rgba(3, 83, 164, 1);
 }
 
-button.pos:hover {
+button.pos:hover,
+button.pos:focus {
 	background-color: rgba(63, 217, 145, 1);
 }
 
-button.neg:hover {
+button.neg:hover,
+button.neg:focus {
 	background-color: rgba(231, 72, 53, 1);
 }
 
-button.ind:hover {
+button.ind:hover,
+button.ind:focus {
 	background-color: rgba(0, 0, 0, .13);
 }
 

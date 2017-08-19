@@ -39,7 +39,8 @@ exports.forgot = async (req, res) => {
     await user.save();
     const resetURL = `http://${req.headers.host}/account/reset/${user.resetPasswordToken}`;
     await mail.send({
-      user,
+      from: 'LitShare <security@litshareapp.com>',
+      to: user.email,
       subject: 'Password Reset',
       resetURL,
       filename: 'password-reset'

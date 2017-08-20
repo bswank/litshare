@@ -3,6 +3,7 @@ const router = express.Router();
 const community = require('../controllers/communityController');
 const user = require('../controllers/userController');
 const auth = require('../controllers/authController');
+const library = require('../controllers/libraryController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 const mongoose = require('mongoose');
@@ -58,6 +59,8 @@ router.post('/communities/:id/join', catchErrors(user.postJoinCommunity));
 router.post('/communities/:id/leave', catchErrors(user.postLeaveCommunity));
 
 router.get('/communities/close', catchErrors(community.nearCommunitiesPage));
+
+router.get('/libraries/', library.searchLibraries);
 
 // API
 

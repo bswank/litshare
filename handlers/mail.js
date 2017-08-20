@@ -23,7 +23,7 @@ exports.send = (options) => {
       htmlBody: html,
       textBody: text
     };
-  client.sendEmail(mailOptions).catch(function() {
-    console.log('Sending email failed.');
+  client.sendEmail(mailOptions).catch(err => {
+    console.error(err);
   });
 };

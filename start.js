@@ -15,6 +15,7 @@ mongoose.connection.on('error', (err) => {
 // Import models so MongoDB knows about them
 require('./models/Community');
 require('./models/User');
+require('./models/Library');
 
 // Start our app!
 const app = require('./app');

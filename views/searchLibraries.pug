@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  #wrapper
+    .content-header
+      h1= title
+    .content-body
+      .bookSearch
+        form(name="bookSearch" action="" method="GET")
+          input.search--input(type="text" name="search")
+          button(type="submit") Search
+        .searchResults
+              
+  script pageVar = '.p-communities';

@@ -183,73 +183,95 @@ $('.modal-container').click(function() {
   $('body').removeClass('no-scroll');
 });
 
-// -------- Book Search -------- //
-
-function searchResultsHTML(communities) {
-  return communities.map(community => {
-    return `
-      <a href="/communities/${community.slug}" class="search--result">
-        <p>${community.name}</p>
-      </a>
-    `
-  }).join('');
-};
-
-function typeAhead(search) {
-  if (!search) return;
-
-  const searchInput = search.querySelector('input[name="search"]');
-  const searchResults = search.querySelector('.searchResults');
-
-  searchInput.addEventListener('input', function() {
-    if (!this.value) {
-      searchResults.style.display = 'none';
-      return;
-    }
-
-    searchResults.style.display = 'block';
-    searchResults.innerHTML = '';
-
-    axios
-      .get(`http://openlibrary.org/search.json?q=${this.value}`)
-      .then(res => {
-        if (res.data.length) {
-          searchResults.innerHTML = DOMPurify.sanitize(searchResultsHTML(res.data));
-          return;
+$('form[name="bookSearch"]').on('submit', function(e) {
+  e.preventDefault();
+  const searchInputVal = $('.search--input').val();
+  $('.searchResults').empty();
+  $.ajax({
+    url: `https://www.googleapis.com/books/v1/volumes?q=${searchInputVal}&KEY=AIzaSyCw4XzKi2KdnH3KQKZJUMi4614fVUGD2l4`,
+    success:
+    function(json) {
+      console.log(json);
+      var htmlcontent = "";
+      for (i = 0; i < json.items.length; i++) {
+        if (json.items[i].volumeInfo.title && json.items[i].volumeInfo.authors) {
+          htmlcontent += "<li>Title: " + json.items[i].volumeInfo.title + "&nbsp Author: " + json.items[i].volumeInfo.authors[0] + "<br>";
         }
-        searchResults.innerHTML = DOMPurify.sanitize(`<div class="search--result">No results for ${this.value} found.</div>`)
-      })
-      .catch(err => {
-        console.error(err);
-      });
+      }
+			document.querySelector('.searchResults').innerHTML = "<ul>" + htmlcontent + "</ul><br>";
+		}
   });
+});
 
-  searchInput.addEventListener('keyup', (e) => {
-    if (![38, 40, 13].includes(e.keyCode)) {
-      return;
-    }
-    const activeClass = 'active';
-    const current = search.querySelector(`.${activeClass}`);
-    const items = search.querySelectorAll('.search--result');
-    let next;
-    if (e.keyCode === 40 && current) {
-      next = current.nextElementSibling || items[0];
-    } else if (e.keyCode === 40) {
-      next = items[0];
-    } else if (e.keyCode === 38 && current) {
-      next = current.previousElementSibling || items[items.length - 1]
-    } else if (e.keyCode === 38) {
-      next = items[items.length - 1];
-    } else if (e.keyCode === 13 && current.href) {
-      window.location = current.href;
-      return;
-    }
+// Stripe Test -------------
 
-    if (current) {
-      current.classList.remove(activeClass);
+// Create a Stripe client
+const stripe = Stripe('pk_test_2otIt0NQeoZpqBuXVB3jbXo8');
+
+// Create an instance of Elements
+const elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+const style = {
+  base: {
+    color: '#32325d',
+    lineHeight: '24px',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
     }
-    next.classList.add(activeClass);
-  });
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
 };
 
-typeAhead(document.querySelector('.bookSearch'));
+// Create an instance of the card Element
+const card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>
+card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+card.addEventListener('change', ({error}) => {
+  const displayError = document.getElementById('card-errors');
+  if (error) {
+    displayError.textContent = error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Create a token or display an error when the form is submitted.
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const {token, error} = await stripe.createToken(card);
+
+  if (error) {
+    // Inform the user if there was an error
+    const errorElement = document.getElementById('card-errors');
+    errorElement.textContent = error.message;
+  } else {
+    // Send the token to your server
+    stripeTokenHandler(token);
+  }
+});
+
+const stripeTokenHandler = (token) => {
+  // Insert the token ID into the form so it gets submitted to the server
+  const form = document.getElementById('payment-form');
+  const hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}

@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const Community = mongoose.model('Community');
 const promisify = require('es6-promisify');
+const mail = require('../handlers/mail');
+const stripe = require('stripe')('sk_test_TqKd9uZeMtj1ililB7JLB6JD');
 
 exports.login = async (req, res) => {
   res.render('login', { title: 'Log In' });
@@ -55,9 +57,59 @@ exports.editUser = async (req, res) => {
   res.redirect('/account');
 };
 
-exports.account = (req, res) => {
-  res.render('account', {
-    title: 'Profile'
+exports.account = async (req, res) => {
+  if (req.user.stripeSubscription) {
+    const subscription = await stripe.subscriptions.retrieve(
+      req.user.stripeSubscription,
+      function(err, subscription) {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log(subscription.status);
+          res.render('account', {
+            title: 'Profile',
+            subscriptionStatus: subscription.status
+          });
+        }
+      }
+    );
+  } else {
+    res.render('account', {
+      title: 'Profile',
+    });
+  }
+};
+
+exports.upgradeAccount = (req, res) => {
+  const token = req.body.stripeToken;
+  stripe.customers.create({
+    source: token,
+    email: req.user.email
+  }).then(function(customer) {
+    User.findOneAndUpdate({ _id: req.user._id }, { stripeCustomer: customer.id }, {
+      runValidators: true,
+      context: 'query'
+    }).exec();
+    return stripe.subscriptions.create({
+      customer: customer.id,
+      plan: 'premium-monthly'
+    });
+  }).then(function(subscription) {
+    User.findOneAndUpdate({ _id: req.user._id }, { stripeSubscription: subscription.id }, {
+      runValidators: true,
+      context: 'query'
+    }).exec();
+  }).then(function() {
+    mail.send({
+      from: 'LitShare <notify@litshareapp.com>',
+      to: req.user.email,
+      subject: 'Welcome to LitShare Pro',
+      filename: 'plan-begin'
+    });
+    res.redirect('/account');
+  }).catch(function(err) {
+    req.flash('error', err.message);
+    res.redirect('/account');
   });
 };
 

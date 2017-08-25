@@ -6,4 +6,13 @@ html
     style
       include email-styles.css
   body
-    block content
+    #wrapper
+      #container
+        #header
+          span
+            img(src="http://bswank.me/logo.png")
+        #body
+          block content
+        #post-footer
+          p
+            small This email was triggered by an action on your account. Manage your transactional email settings from your #[a(href="https://litshareapp.com") account].

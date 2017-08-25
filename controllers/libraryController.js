@@ -8,3 +8,8 @@ exports.searchLibraries = (req, res) => {
   res.render('libraries', { title:
   'Search for Books' });
 };
+
+exports.libraries = (req, res) => {
+  res.render('libraries', { title:
+  'Your Libraries' });
+};

@@ -5,6 +5,7 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
     link(rel="stylesheet" href="/css/style.css")
     link(href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet")
     script(src="https://code.jquery.com/jquery-3.2.1.min.js")
   body
     include ./mixins/modals
@@ -13,7 +14,6 @@ html
       header
         .inner
           span LitShare
-            i.fa.fa-bookmark-o
           nav
             ul
               if !user
@@ -25,7 +25,7 @@ html
                 li
                   a.p-dashboard(href="/") Dashboard
                 li
-                  a.p-library(href="/libraries/") Libraries
+                  a.p-libraries(href="/libraries/") Libraries
                 li
                   a.p-communities(href="/communities/") Communities
                 li.user.user-menu-toggle

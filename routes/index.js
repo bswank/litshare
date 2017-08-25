@@ -38,7 +38,7 @@ router.get('/logout', auth.isLoggedIn, auth.logout);
 
 router.post('/communities/:id/delete', catchErrors(community.deleteCommunity));
 
-router.get('/account', auth.isLoggedIn, user.account);
+router.get('/account', auth.isLoggedIn, catchErrors(user.account));
 
 router.post('/account', catchErrors(user.editUser));
 
@@ -60,7 +60,11 @@ router.post('/communities/:id/leave', catchErrors(user.postLeaveCommunity));
 
 router.get('/communities/close', catchErrors(community.nearCommunitiesPage));
 
-router.get('/libraries/', library.searchLibraries);
+router.get('/libraries/', library.libraries);
+
+// Plan Management
+
+router.post('/plan-management/upgrade-account', user.upgradeAccount);
 
 // API
 

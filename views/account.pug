@@ -1,37 +1,8 @@
 extends layout
 
 block content
-  .modal-wrapper#editProfileModal
-    .modal-container
-      .modal
-        .modal-header
-          h2 Edit Profile
-        .modal-body
-          form(action="/account" method="POST")
-            label(for="name") Name
-            input(type="text" name="name" value=(user && user.name))
-            label(for="email") Email Address
-            input(type="email" name="email" value=(user && user.email))
-            label(for="Bio") Bio
-            textarea(name="bio" rows="4" placeholder="Tell us a little about yourself.")= user &&  user.bio
-            label(for="location") Location
-            input(type="text" id="address" name="location[address]" placeholder="City, State, Province, or Region" value=(user && user.location.address))
-            input.hidden(type="text" id="lng" name="location[coordinates][0]" value=(user && user.location.coordinates[0]) hidden)
-            input.hidden(type="text" id="lat" name="location[coordinates][1]" value=(user && user.location.coordinates[1]) hidden)
-            button.submit(type="submit") Save Changes
-            button.ind.cancel.ml(type="button") Cancel
-            
-  .modal-wrapper#deleteAccountModal
-    .modal-container
-      .modal
-        .modal-header
-          h2 Please Conifrm
-          p This action cannot be undone. Seriously. You'll lose any books in your library and all profile data.
-        .modal-body
-          form(action=`/account/delete` method="POST")
-            button.neg.nm(type="submit") Delete Account
-            button.ind.cancel.nm.ml(type="button") Cancel
-            
+  +editProfileModal()
+  +deleteAccountModal()
   #wrapper
     .content-header
       h1 Profile
@@ -51,6 +22,19 @@ block content
       hr
       h2 Location
       p= user && user.location && user.location.address
+      hr
+      h2 Subscription
+      p= user.stripeCustomer || 'None'
+      p= user.stripeSubscription || 'None'
+      p= subscriptionStatus || 'None'
+      hr
+      script(src="https://js.stripe.com/v3/")
+      form(action="/plan-management/upgrade-account" method="POST" id="payment-form")
+        .form-row
+          label(for="card-element") Credit or Debit Card
+          #card-element
+          #card-errors(role="alert")
+          button(type="submit") Submit Payment
       hr
       button#editProfileModal--trigger.nm Edit Profile
       button#deleteAccountModal--trigger.neg.ml.nm Delete Account

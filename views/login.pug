@@ -1,22 +1,7 @@
 extends layout
 
 block content
-  .modal-wrapper#forgotPasswordModal
-    .modal-container
-      .modal
-        .modal-header
-          span.modal-close
-          h2 Forgot your password, eh?
-        .modal-body
-          form(action="/account/forgot" method="POST")
-            label(for="email") Email Address
-            input(type="email" name="email")
-            p.helper
-              small We'll send an email with a link to reset it.
-            a
-              button(type="submit") Reset Password
-            a
-              button.ind.ml.cancel(type="button") Cancel
+  +forgotPasswordModal()
   #wrapper
     .content-header
       h1= title

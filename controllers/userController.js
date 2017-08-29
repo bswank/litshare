@@ -60,57 +60,111 @@ exports.editUser = async (req, res) => {
 exports.account = async (req, res) => {
   if (req.user.stripeSubscription) {
     const subscription = await stripe.subscriptions.retrieve(
-      req.user.stripeSubscription,
-      function(err, subscription) {
-        if (err) {
-          console.error(err.message);
-        } else {
-          console.log(subscription.status);
-          res.render('account', {
-            title: 'Profile',
-            subscriptionStatus: subscription.status
-          });
-        }
-      }
+      req.user.stripeSubscription
     );
+    const customer = await stripe.customers.retrieve(
+      req.user.stripeCustomer
+    );
+    const source = await stripe.customers.retrieveCard(
+      customer.id,
+      customer.default_source
+    );
+    res.render('account', {
+      title: 'Account',
+      subscription,
+      source
+    });
   } else {
     res.render('account', {
-      title: 'Profile',
+      title: 'Account'
     });
   }
 };
 
-exports.upgradeAccount = (req, res) => {
-  const token = req.body.stripeToken;
-  stripe.customers.create({
-    source: token,
-    email: req.user.email
-  }).then(function(customer) {
-    User.findOneAndUpdate({ _id: req.user._id }, { stripeCustomer: customer.id }, {
-      runValidators: true,
-      context: 'query'
-    }).exec();
-    return stripe.subscriptions.create({
-      customer: customer.id,
-      plan: 'premium-monthly'
+exports.upgradeAccount = async (req, res) => {
+  try {
+    const token = req.body.stripeToken;
+    const customer = await stripe.customers.create({
+      source: token,
+      email: req.user.email
     });
-  }).then(function(subscription) {
-    User.findOneAndUpdate({ _id: req.user._id }, { stripeSubscription: subscription.id }, {
+    await User.findOneAndUpdate({ _id: req.user._id }, { stripeCustomer: customer.id }, {
+        runValidators: true,
+        context: 'query'
+    }).exec();
+    const subscription = await stripe.subscriptions.create({
+        customer: customer.id,
+        plan: 'premium-monthly'
+    });
+    await User.findOneAndUpdate({ _id: req.user._id }, { stripeSubscription: subscription.id }, {
       runValidators: true,
       context: 'query'
     }).exec();
-  }).then(function() {
-    mail.send({
+    await mail.send({
       from: 'LitShare <notify@litshareapp.com>',
       to: req.user.email,
       subject: 'Welcome to LitShare Pro',
       filename: 'plan-begin'
     });
+    req.flash('success', 'Success!');
     res.redirect('/account');
-  }).catch(function(err) {
-    req.flash('error', err.message);
+  }
+  catch(error) {
+    req.flash('error', error.message);
     res.redirect('/account');
-  });
+  }
+};
+
+exports.updateCard = async (req, res) => {
+  try {
+    const token = req.body.stripeToken;
+    const stripeCustomer = req.user.stripeCustomer;
+    const customer = await stripe.customers.retrieve(
+      stripeCustomer
+    );
+    const defaultSource = customer.default_source;
+    await stripe.customers.deleteCard(stripeCustomer, defaultSource);
+    await stripe.customers.createSource(stripeCustomer, {
+      source: token
+    });
+    await mail.send({
+      from: 'LitShare <notify@litshareapp.com>',
+      to: req.user.email,
+      subject: 'Card Updated Successfully 👍',
+      filename: 'card-updated'
+    });
+    req.flash('success', 'Success!');
+    res.redirect('/account');
+  }
+  catch(error) {
+    req.flash('error', error.message);
+    res.redirect('/account');
+  }
+};
+
+exports.downgradeAccount = async (req, res) => {
+  try {
+    const stripeSubscription = req.user.stripeSubscription;
+    const subscription = await stripe.subscriptions.del(
+      stripeSubscription
+    );
+    await User.findOneAndUpdate({ _id: req.user._id }, { stripeSubscription: undefined }, {
+      runValidators: true,
+      context: 'query'
+    }).exec();
+    await mail.send({
+      from: 'LitShare <notify@litshareapp.com>',
+      to: req.user.email,
+      subject: 'See ya later ✌️',
+      filename: 'plan-end'
+    });
+    req.flash('success', 'Success!');
+    res.redirect('/account');
+  }
+  catch(error) {
+    req.flash('error', error.message);
+    res.redirect('/account');
+  }
 };
 
 exports.postJoinCommunity = async (req, res) => {

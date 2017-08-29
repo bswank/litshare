@@ -64,7 +64,11 @@ router.get('/libraries/', library.libraries);
 
 // Plan Management
 
-router.post('/plan-management/upgrade-account', user.upgradeAccount);
+router.post('/plan-management/upgrade-account', catchErrors(user.upgradeAccount));
+
+router.post('/plan-management/update-card', catchErrors(user.updateCard));
+
+router.post('/plan-management/downgrade-account', catchErrors(user.downgradeAccount));
 
 // API
 

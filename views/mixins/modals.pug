@@ -4,8 +4,9 @@ mixin newCommunityModal()
       .modal
         .modal-header
           h2 Create a Community
-          p Be specific and unique. Remember, LitShare Communities are based on real-life communities.
         .modal-body.community-form
+          p Be specific and unique. Remember, LitShare Communities are based on real-life communities.
+          hr
           form(action=`/communities/new` method="POST")
             label(for="Name") Name
             input(type="text" name="name" autocomplete="off" placeholder="Community Name")
@@ -71,8 +72,9 @@ mixin deleteCommunityModal()
       .modal
         .modal-header
           h2 Please Conifrm
-          p This action cannot be undone. Seriously.
         .modal-body
+          p This action cannot be undone. Seriously.
+          hr
           form(action=`/communities/${community._id}/delete` method="POST")
             button.neg.nm(type="submit") Delete Community
             button.ind.cancel.nm.ml(type="button") Cancel
@@ -82,12 +84,13 @@ mixin leaveCommunityModal()
     .modal-container
       .modal
         .modal-header
-          h2 Please Conifrm
-          p Do you really want to leave #{community.name}? You can be a part of as many communities as you like for free.
+          h2 Please Confirm
         .modal-body
+          p Do you really want to leave #{community.name}? You can be a part of as many communities as you like for free.
+          hr
           form(action=`/communities/${community._id}/leave` method="POST")
-            button.nm(type="submit") Leave Community
-            button.ind.cancel.nm.ml(type="button") Cancel
+            button(type="submit") Leave Community
+            button.ind.cancel.ml(type="button") Cancel
             
 mixin editProfileModal()
   .modal-wrapper#editProfileModal
@@ -116,8 +119,67 @@ mixin deleteAccountModal()
       .modal
         .modal-header
           h2 Please Conifrm
-          p This action cannot be undone. Seriously. You'll lose any books in your library and all profile data.
         .modal-body
+          p This action cannot be undone. Seriously. You'll lose any books in your library and all profile data.
+          hr
           form(action=`/account/delete` method="POST")
-            button.neg.nm(type="submit") Delete Account
-            button.ind.cancel.nm.ml(type="button") Cancel
+            button.neg(type="submit") Delete Account
+            button.ind.cancel.ml(type="button") Cancel
+
+mixin manageAccountModal()
+  .modal-wrapper.manageAccountModal
+    .modal-container
+      .modal
+        if user.stripeSubscription
+          .modal-header
+            h2 Update your Debit or Credit Card
+          .modal-body
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            hr
+            form(action="/plan-management/update-card" method="POST" id="payment-form")
+              label(for="card-element") New Debit or Credit Card
+              #card-element
+              #card-errors(role="alert")
+              button(type="submit") Update Card
+              button.ml.ind.cancel(type="button") Cancel
+        else
+          .modal-header
+            h2 Upgrade to LitShare Pro
+          .modal-body
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            hr
+            form(action="/plan-management/upgrade-account" method="POST" id="payment-form")
+              label(for="card-element") Debit or Credit Card
+              #card-element
+              #card-errors(role="alert")
+              button(type="submit") Subscribe Monthly
+              button.ml.ind.cancel(type="button") Cancel
+            
+mixin downgradeAccountModal()
+  .modal-wrapper#downgradeAccountModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Downgrade from LitShare Pro
+        .modal-body
+          p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          hr
+          form(action="/plan-management/downgrade-account" method="POST" id="payment-form")
+            button.neg(type="submit") Cancel Subscription
+            button.ml.ind.cancel(type="button") Cancel
+            
+mixin forgotPasswordModal()
+  .modal-wrapper#forgotPasswordModal
+    .modal-container
+      .modal
+        .modal-header
+          span.modal-close
+          h2 Forgot your password, eh?
+        .modal-body
+          form(action="/account/forgot" method="POST")
+            label(for="email") Email Address
+            input(type="email" name="email")
+            p.helper
+              small We'll send an email with a link to reset it.
+            button(type="submit") Reset Password
+            button.ind.ml.cancel(type="button") Cancel

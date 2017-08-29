@@ -1,15 +1,24 @@
 extends layout
 
 block content
+  script(src="https://js.stripe.com/v3/")
   +editProfileModal()
   +deleteAccountModal()
+  +manageAccountModal()
+  +downgradeAccountModal()
   #wrapper
     .content-header
       h1 Profile
       .content-menu
         ul
-          li
-            a#editAccountModal--trigger Upgrade Account
+          if user.stripeSubscription
+            li
+              a.manageAccountModal--trigger Update Card
+            li
+              a#downgradeAccountModal--trigger Downgrade Account
+          else
+            li
+              a.manageAccountModal--trigger Upgrade Account
     .content-body
       h2 Name
       p= user && user.name
@@ -22,19 +31,15 @@ block content
       hr
       h2 Location
       p= user && user.location && user.location.address
-      hr
-      h2 Subscription
-      p= user.stripeCustomer || 'None'
-      p= user.stripeSubscription || 'None'
-      p= subscriptionStatus || 'None'
-      hr
-      script(src="https://js.stripe.com/v3/")
-      form(action="/plan-management/upgrade-account" method="POST" id="payment-form")
-        .form-row
-          label(for="card-element") Credit or Debit Card
-          #card-element
-          #card-errors(role="alert")
-          button(type="submit") Submit Payment
+      if user.stripeSubscription
+        hr
+        h2 Subscription
+        p= user.stripeCustomer
+        p= user.stripeSubscription
+        p= subscription.status
+        p= source.last4
+        p= source.brand
+        p Expires #{source.exp_month}/#{source.exp_year}
       hr
       button#editProfileModal--trigger.nm Edit Profile
       button#deleteAccountModal--trigger.neg.ml.nm Delete Account

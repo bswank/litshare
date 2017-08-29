@@ -1,29 +1,27 @@
-const nodemailer = require('nodemailer');
-const promisify = require('es6-promisify');
-const pug = require('pug');
-const juice = require('juice');
-const htmltotext = require('html-to-text');
-const postmark = require('postmark');
+const pug = require('pug')
+const juice = require('juice')
+const htmltotext = require('html-to-text')
+const postmark = require('postmark')
 
-const client = new postmark.Client('bce02af7-32e9-44a8-bce6-b3cba9ca076e');
+const client = new postmark.Client('bce02af7-32e9-44a8-bce6-b3cba9ca076e')
 
 const generateHTML = (filename, options = {}) => {
-  const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
-  const inlined = juice(html);
-  return inlined;
-};
+  const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options)
+  const inlined = juice(html)
+  return inlined
+}
 
 exports.send = (options) => {
-  const html = generateHTML(options.filename, options);
-  const text = htmltotext.fromString(html);
+  const html = generateHTML(options.filename, options)
+  const text = htmltotext.fromString(html)
   const mailOptions = {
-      from: options.from || `LitShare <notify@litshareapp.com>`,
-      to: options.to,
-      subject: options.subject,
-      htmlBody: html,
-      textBody: text
-    };
+    from: options.from || `LitShare <notify@litshareapp.com>`,
+    to: options.to,
+    subject: options.subject,
+    htmlBody: html,
+    textBody: text
+  }
   client.sendEmail(mailOptions).catch(err => {
-    console.error(err);
-  });
-};
+    console.error(err)
+  })
+}

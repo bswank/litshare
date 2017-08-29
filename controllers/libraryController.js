@@ -1,15 +1,14 @@
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const Community = mongoose.model('Community');
-const Library = mongoose.model('Library');
-const promisify = require('es6-promisify');
+const mongoose = require('mongoose')
+const User = mongoose.model('User')
+const Community = mongoose.model('Community')
+const Library = mongoose.model('Library')
 
 exports.searchLibraries = (req, res) => {
   res.render('libraries', { title:
-  'Search for Books' });
-};
+  'Search for Books' })
+}
 
 exports.libraries = (req, res) => {
   res.render('libraries', { title:
-  'Your Libraries' });
-};
+  'Your Libraries' })
+}

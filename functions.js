@@ -1,5 +1,3 @@
-// Some functions made available to our templates via our local variables (f.[function])
-
 // Is the user a community admin
 exports.isAdmin = (u, c) => {
   for (let i = 0; i < c.admin.length; i++) {

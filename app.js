@@ -20,7 +20,7 @@ const app = express()
 
 // view engine setup
 app.set('view engine', 'pug')
-app.set('views', __dirname + '/views')
+app.set('views', __dirname + '/views') // eslint-disable-line
 
 // app.use = global middleware
 

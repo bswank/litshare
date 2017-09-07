@@ -52,7 +52,7 @@ exports.getMyCommunities = async (req, res) => {
 
 const confirmAdmin = (community, user) => {
   for (let i = 0; i < community.admin.length; i++) {
-    if (community.admin[i].toString() === user._id) {
+    if (community.admin[i].toString() === user._id.toString()) {
       return 1
     } else {
       return 0

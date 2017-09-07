@@ -114,7 +114,7 @@ function typeAhead (search) {
     const activeClass = 'active'
     const current = search.querySelector(`.${activeClass}`)
     const items = search.querySelectorAll('.search--result')
-    let next
+    let next = ''
     if (e.keyCode === 40 && current) {
       next = current.nextElementSibling || items[0]
     } else if (e.keyCode === 40) {

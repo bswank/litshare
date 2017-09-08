@@ -2,12 +2,6 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const Community = mongoose.model('Community')
 
-exports.newCommunity = (req, res) => {
-  res.render('editCommunity', {
-    title: 'Create a New Community'
-  })
-}
-
 exports.saveNewCommunity = async (req, res) => {
   // Add user as admin in community
   req.body.admin = req.user._id
@@ -112,6 +106,7 @@ exports.nearCommunitiesPage = async (req, res) => {
     communities
   })
 }
+
 exports.searchCommunities = async (req, res) => {
   const communities = await Community
   .find({

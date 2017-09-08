@@ -325,6 +325,10 @@ small {
 	font-size: 11px;
 }
 
+strong {
+	font-weight: bold;
+}
+
 h1 {
 	font-size: 22px;
 	font-weight: 500;
@@ -464,6 +468,10 @@ button:active {
 
 button.ml {
 	margin-left: 10px;
+}
+
+button.mt {
+	margin-top: 10px;
 }
 
 .flash {
@@ -616,6 +624,35 @@ input + button,
 
 .searchResults .search--result.active {
 	background-color: #f1f1f1;
+}
+
+.book-suggestions {
+	margin-top: 25px;
+}
+
+.book-suggestion {
+	padding: 10px 10px 10px 0;
+	border-bottom: 1px solid #f1f1f1;
+	border-radius: 2px;
+	overflow: auto;
+}
+
+.book-suggestion .info {
+	float: left;
+}
+
+.book-suggestion img {
+	width: 75px;
+	float: left;
+	margin-right: 25px;
+}
+
+.book-suggestion button {
+	float: right;
+}
+
+.book-suggestion:last-child {
+	border-bottom: none;
 }
 
 /* Stripe Test */

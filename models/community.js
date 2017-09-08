@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-const slug = require('slugs');
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
+const slug = require('slugs')
 
 const communitySchema = new mongoose.Schema({
   name: {

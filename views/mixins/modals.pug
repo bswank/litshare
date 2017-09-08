@@ -28,7 +28,7 @@ mixin newCommunityModal()
               option(value="true") Private (Invitation only)
             p.helper
               small Choose a way users will join.
-            button.submit(type="submit") Save Community
+            button.submit(type="submit") Create Community
             button.ind.ml.cancel(type="button") Cancel
             
 mixin editCommunityModal()
@@ -183,3 +183,25 @@ mixin forgotPasswordModal()
               small We'll send an email with a link to reset it.
             button(type="submit") Reset Password
             button.ind.ml.cancel(type="button") Cancel
+            
+mixin newLibraryModal()
+  .modal-wrapper#createLibraryModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Create a Library
+        .modal-body.community-form
+          form(action=`/libraries/new` method="POST")
+            label(for="Name") Name
+            input(type="text" name="name" autocomplete="off" placeholder="Library Name")
+            p.helper
+              small Only you will see this.
+            label(for="Visibility") Community Visibility
+            select(name="private")
+              option(value="false") Public (These books are avaialable in my communities)
+              option(value="true") Private (These books are not available in my communities)
+            p.helper
+              small Should other users see these books?
+            button.submit(type="submit") Create Library
+            button.ind.ml.cancel(type="button") Cancel
+            

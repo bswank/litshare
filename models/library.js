@@ -1,24 +1,21 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-mongoose.Promise = global.Promise;
-const validator = require('validator');
-const mongodbErrorHandler = require('mongoose-mongodb-errors');
-const passportLocalMongoose = require('passport-local-mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+mongoose.Promise = global.Promise
+const mongodbErrorHandler = require('mongoose-mongodb-errors')
 
-const userSchema = new Schema({
+const librarySchema = new Schema({
   name: {
     type: String,
-    unique: true,
     trim: true,
-    required: 'Email Address is required.'
+    required: 'A name is required.'
   },
+  private: Boolean,
   owner: {
     type: mongoose.Schema.ObjectId,
     ref: 'User'
-  },
-});
+  }
+})
 
-userSchema.plugin(mongodbErrorHandler);
+librarySchema.plugin(mongodbErrorHandler)
 
-module.exports = mongoose.model('Library', userSchema);
+module.exports = mongoose.model('Library', librarySchema)

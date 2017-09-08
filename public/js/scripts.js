@@ -172,6 +172,11 @@ $('#forgotPasswordModal--trigger').click(function () {
   $('body').addClass('no-scroll')
 })
 
+$('#createLibraryModal--trigger').click(function () {
+  $('#createLibraryModal').fadeIn('fast')
+  $('body').addClass('no-scroll')
+})
+
 $('.manageAccountModal--trigger').click(function () {
   $('.manageAccountModal').fadeIn('fast')
   $('body').addClass('no-scroll')
@@ -207,11 +212,24 @@ $('form[name="bookSearch"]').on('submit', function (e) {
       console.log(json)
       var htmlcontent = ''
       for (let i = 0; i < json.items.length; i++) {
-        if (json.items[i].volumeInfo.title && json.items[i].volumeInfo.authors) {
-          htmlcontent += '<li>Title: ' + json.items[i].volumeInfo.title + '&nbsp Author: ' + json.items[i].volumeInfo.authors[0] + '<br>'
+        if (json.items[i].volumeInfo.title && json.items[i].volumeInfo.authors && json.items[i].volumeInfo.imageLinks) {
+          htmlcontent += `
+            <div class="book-suggestion">
+              <li>
+                <img src=${json.items[i].volumeInfo.imageLinks.smallThumbnail}>
+                <div class="info">
+                  <h3><strong>${json.items[i].volumeInfo.title}</strong></h3>
+                  <p>${json.items[i].volumeInfo.subtitle}</p>
+                  <p><small>${json.items[i].volumeInfo.authors[0]}</small></p>
+                </div>
+                <button class="pos mt">Add</button>
+                <br>
+              </li>
+            </div>
+          `
         }
       }
-      document.querySelector('.searchResults').innerHTML = '<ul>' + htmlcontent + '</ul><br>'
+      document.querySelector('.searchResults').innerHTML = `<div class="book-suggestions"><ul>${htmlcontent}</ul></div>`
     }
   })
 })

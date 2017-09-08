@@ -56,7 +56,11 @@ router.post('/communities/:id/leave', catchErrors(user.postLeaveCommunity))
 
 router.get('/communities/close', catchErrors(community.nearCommunitiesPage))
 
+router.get('/libraries/addbooks', catchErrors(library.addBooks))
+
 router.get('/libraries/', library.libraries)
+
+router.post('/libraries/new', catchErrors(library.saveNewLibrary))
 
 // Plan Management
 

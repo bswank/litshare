@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-mongoose.Promise = global.Promise;
-const validator = require('validator');
-const mongodbErrorHandler = require('mongoose-mongodb-errors');
-const passportLocalMongoose = require('passport-local-mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+mongoose.Promise = global.Promise
+const validator = require('validator')
+const mongodbErrorHandler = require('mongoose-mongodb-errors')
+const passportLocalMongoose = require('passport-local-mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = new Schema({
   email: {
@@ -48,10 +48,10 @@ const userSchema = new Schema({
   stripeSubscription: String,
   permissions: Number, // 10 - User, 20 Admin
   plan: Number // 10 - Default, 20 - Pro
-});
+})
 
-userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
-userSchema.plugin(uniqueValidator, { message: 'A user with this email address already exists.' });
-userSchema.plugin(mongodbErrorHandler);
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' })
+userSchema.plugin(uniqueValidator, { message: 'A user with this email address already exists.' })
+userSchema.plugin(mongodbErrorHandler)
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema)

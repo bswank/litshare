@@ -1,9 +1,14 @@
 extends layout
 
 block content
+  +newLibraryModal()
   #wrapper
     .content-header
       h1= title
+      .content-menu
+        ul
+          li
+            a#createLibraryModal--trigger Create Library
     .content-body
               
   script pageVar = '.p-libraries';

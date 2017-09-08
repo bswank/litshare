@@ -38,7 +38,6 @@ exports.library = async (req, res) => {
     const books = await Book.find({
       libraries: library._id
     })
-    console.log(books)
     res.render('library', {
       title: library.name,
       library,

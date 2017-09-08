@@ -36,7 +36,6 @@ exports.library = async (req, res) => {
   if (isOwner === 1) {
     // Get all books in library
     const books = await Book.find({
-      // _id: { $in: req.user.communities }
       libraries: library._id
     })
     console.log(books)

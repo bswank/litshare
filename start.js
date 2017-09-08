@@ -16,6 +16,7 @@ mongoose.connection.on('error', (err) => {
 require('./models/Community')
 require('./models/User')
 require('./models/Library')
+require('./models/Book')
 
 // Start our app!
 const app = require('./app')

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  +addBookModal()
+  #wrapper
+    .content-header
+      h1= title
+      .content-menu
+        ul
+          li
+            a#addBookModal--trigger Add Book
+    .content-body
+      p Private: #{library.private}
+      hr
+      each book in books
+        h3= book.title
+        p= book.subtitle
+        p= book.author
+        hr
+              
+  script pageVar = '.p-libraries';

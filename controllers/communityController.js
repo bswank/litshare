@@ -48,12 +48,11 @@ const confirmAdmin = (community, user) => {
   for (let i = 0; i < community.admin.length; i++) {
     if (community.admin[i].toString() === user._id.toString()) {
       return 1
-    } else {
-      return 0
     }
   }
 }
 
+// TODO confirm this works
 exports.saveEditCommunity = async (req, res) => {
   let community = await Community.findOne({ _id: req.params.id })
   let user = req.user
@@ -66,7 +65,7 @@ exports.saveEditCommunity = async (req, res) => {
     }).exec()
     req.flash('success', `Successfully updated ${community.name}.`)
     res.redirect(`/communities/all`)
-  } else if (isAdmin === 0) {
+  } else {
     req.flash('error', `Nice try, jackass.`)
     res.redirect(`/communities/all`)
   }

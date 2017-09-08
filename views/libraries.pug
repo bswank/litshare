@@ -10,5 +10,10 @@ block content
           li
             a#createLibraryModal--trigger Create Library
     .content-body
+      each library in libraries
+        h3
+          a(href=`/libraries/${library._id}`) #{library.name}
+        p Private: #{library.private}
+        hr
               
   script pageVar = '.p-libraries';

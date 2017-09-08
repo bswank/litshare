@@ -9,11 +9,7 @@ const librarySchema = new Schema({
     trim: true,
     required: 'A name is required.'
   },
-  private: Boolean,
-  owner: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User'
-  }
+  private: Boolean
 })
 
 librarySchema.plugin(mongodbErrorHandler)

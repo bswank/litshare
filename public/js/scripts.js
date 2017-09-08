@@ -177,6 +177,11 @@ $('#createLibraryModal--trigger').click(function () {
   $('body').addClass('no-scroll')
 })
 
+$('#addBookModal--trigger').click(function () {
+  $('#addBookModal').fadeIn('fast')
+  $('body').addClass('no-scroll')
+})
+
 $('.manageAccountModal--trigger').click(function () {
   $('.manageAccountModal').fadeIn('fast')
   $('body').addClass('no-scroll')

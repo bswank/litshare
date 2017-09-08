@@ -4,6 +4,7 @@ const community = require('../controllers/communityController')
 const user = require('../controllers/userController')
 const auth = require('../controllers/authController')
 const library = require('../controllers/libraryController')
+const book = require('../controllers/bookController')
 const { catchErrors } = require('../handlers/errorHandlers')
 
 router.get('/', (req, res) => {
@@ -58,9 +59,13 @@ router.get('/communities/close', catchErrors(community.nearCommunitiesPage))
 
 router.get('/libraries/addbooks', catchErrors(library.addBooks))
 
-router.get('/libraries/', library.libraries)
+router.get('/libraries/', catchErrors(library.libraries))
+
+router.get('/libraries/:id', catchErrors(library.library))
 
 router.post('/libraries/new', catchErrors(library.saveNewLibrary))
+
+router.post('/books/add', catchErrors(book.saveNewBook))
 
 // Plan Management
 

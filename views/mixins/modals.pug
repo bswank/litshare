@@ -205,3 +205,20 @@ mixin newLibraryModal()
             button.submit(type="submit") Create Library
             button.ind.ml.cancel(type="button") Cancel
             
+mixin addBookModal()
+  .modal-wrapper#addBookModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Add a Book
+        .modal-body.community-form
+          form(action=`/books/add` method="POST")
+            label(for="Title") Title
+            input(type="text" name="title" autocomplete="off" placeholder="Title")
+            label(for="Subtitle") Subtitle
+            input(type="text" name="subtitle" autocomplete="off" placeholder="Subtitle")
+            label(for="Author") Author
+            input(type="text" name="author" autocomplete="off" placeholder="Author")
+            input(type="hidden" name="libraries" value=`${library._id}`)
+            button.submit(type="submit") Add Book
+            button.ind.ml.cancel(type="button") Cancel

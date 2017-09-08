@@ -44,6 +44,10 @@ const userSchema = new Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Community'
   }],
+  libraries: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Library'
+  }],
   stripeCustomer: String,
   stripeSubscription: String,
   permissions: Number, // 10 - User, 20 Admin

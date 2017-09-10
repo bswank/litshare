@@ -37,11 +37,9 @@ block content
                       p.helper
                         small Describe the specific local context or community.
                       label(for="Location") Location
-                      input(type="text" id="address" name="location[address]" placeholder="City, State, Province, or Region" value=(community && community.location.address))
+                      input(type="text" value=(community && community.location.address) disabled)
                       p.helper
-                        small Specify the community's general location.
-                      input.hidden(type="text" id="lng" name="location[coordinates][0]" value=(community && community.location.coordinates[0]) hidden)
-                      input.hidden(type="text" id="lat" name="location[coordinates][1]" value=(community && community.location.coordinates[1]) hidden)
+                        small Communities don't relocate. Location cannot be edited.
                       label(for="Admission") Admission
                       select(name="private")
                         if community && community.private == true
@@ -52,6 +50,7 @@ block content
                           option(value="true") Private (Invitation only)
                       p.helper
                         small Choose a way users will join.
+                      hr
                       button.submit(type="submit") Save Changes
                       button.ind.ml.cancel(type="button") Cancel
             .left

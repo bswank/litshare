@@ -67,6 +67,8 @@ router.post('/libraries/new', catchErrors(library.saveNewLibrary))
 
 router.post('/books/add', catchErrors(book.saveNewBook))
 
+router.post('/books/quick-add', catchErrors(book.saveNewBookQuick))
+
 // Plan Management
 
 router.post('/plan-management/upgrade-account', catchErrors(user.upgradeAccount))

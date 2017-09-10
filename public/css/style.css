@@ -344,7 +344,6 @@ h2 {
 .modal h2 {
 	font-size: 16px;
 	font-weight: 400;
-	/*color: #666;*/
 	margin-bottom: 0;
 }
 
@@ -559,7 +558,7 @@ button.mt {
 }
 
 label {
-	display: block;
+	display: inline-block;
 	margin-top: 20px;
 	font-size: 14px;
 	color: #444;
@@ -590,6 +589,21 @@ input:focus,
 select:focus,
 textarea:focus {
 	border: 1px solid #444;
+}
+
+select {
+	cursor: pointer;
+}
+
+input.short {
+	display: inline-block;
+	width: calc(100% - 74px);
+	margin-right: 10px;
+}
+
+button.short {
+	padding: 11px 25px;
+	margin-top: 0;
 }
 
 form p.helper {
@@ -631,7 +645,7 @@ input + button,
 }
 
 .book-suggestion {
-	padding: 10px 10px 10px 0;
+	padding: 10px 0 10px 0;
 	border-bottom: 1px solid #f1f1f1;
 	border-radius: 2px;
 	overflow: auto;
@@ -639,6 +653,7 @@ input + button,
 
 .book-suggestion .info {
 	float: left;
+	width: calc(100% - 175px);
 }
 
 .book-suggestion img {

@@ -1,4 +1,4 @@
-/* global $, pageVar, google, axios, DOMPurify, Stripe */
+/* global $, pageVar, google, axios, DOMPurify */
 
 $('.user-menu-toggle').click(function () {
   if ($('header nav ul li.user.user-notifications-toggle a').hasClass('active')) {
@@ -142,6 +142,11 @@ $('#createCommunityModal--trigger').click(function () {
   $('body').addClass('no-scroll')
 })
 
+$('#quickAddBookModal--trigger').click(function () {
+  $('#quickAddBookModal').fadeIn('fast')
+  $('body').addClass('no-scroll')
+})
+
 $('#editCommunityModal--trigger').click(function () {
   $('#editCommunityModal').fadeIn('fast')
   $('body').addClass('no-scroll')
@@ -206,89 +211,9 @@ $('.modal-container').click(function () {
   $('body').removeClass('no-scroll')
 })
 
-$('form[name="bookSearch"]').on('submit', function (e) {
-  e.preventDefault()
-  const searchInputVal = $('.search--input').val()
-  $('.searchResults').empty()
-  $.ajax({
-    url: `https://www.googleapis.com/books/v1/volumes?q=${searchInputVal}&KEY=AIzaSyCw4XzKi2KdnH3KQKZJUMi4614fVUGD2l4`,
-    success:
-    function (json) {
-      console.log(json)
-      var htmlcontent = ''
-      for (let i = 0; i < json.items.length; i++) {
-        if (json.items[i].volumeInfo.title && json.items[i].volumeInfo.authors && json.items[i].volumeInfo.imageLinks) {
-          htmlcontent += `
-            <div class="book-suggestion">
-              <li>
-                <img src=${json.items[i].volumeInfo.imageLinks.smallThumbnail}>
-                <div class="info">
-                  <h3><strong>${json.items[i].volumeInfo.title}</strong></h3>
-                  <p>${json.items[i].volumeInfo.subtitle}</p>
-                  <p><small>${json.items[i].volumeInfo.authors[0]}</small></p>
-                </div>
-                <button class="pos mt">Add</button>
-                <br>
-              </li>
-            </div>
-          `
-        }
-      }
-      document.querySelector('.searchResults').innerHTML = `<div class="book-suggestions"><ul>${htmlcontent}</ul></div>`
-    }
-  })
-})
-
-const stripe = Stripe('pk_test_2otIt0NQeoZpqBuXVB3jbXo8')
-const elements = stripe.elements({
-  fonts: [
-    {
-      family: 'Lato',
-      weight: 400,
-      src: 'local("Lato Regular"), local("Lato-Regular"), url(https://fonts.gstatic.com/s/lato/v13/MDadn8DQ_3oT6kvnUq_2r_esZW2xOQ-xsNqO47m55DA.woff2) format("woff2")',
-      unicodeRange: 'U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215'
-    }
-  ]
-})
-const card = elements.create('card', {
-  style: {
-    base: {
-      fontFamily: '"Lato", sans-serif'
-    }
-  }
-})
-card.mount('#card-element')
-card.addEventListener('change', ({error}) => {
-  const displayError = document.getElementById('card-errors')
-  if (error) {
-    displayError.textContent = error.message
-  } else {
-    displayError.textContent = ''
-  }
-})
-
-const form = document.getElementById('payment-form')
-form.addEventListener('submit', async (event) => {
-  event.preventDefault()
-  const {token, error} = await stripe.createToken(card)
-  if (error) {
-    const errorElement = document.getElementById('card-errors')
-    errorElement.textContent = error.message
-  } else {
-    stripeTokenHandler(token)
-  }
-})
-
-const stripeTokenHandler = (token) => {
-  const form = document.getElementById('payment-form')
-  const hiddenInput = document.createElement('input')
-  hiddenInput.setAttribute('type', 'hidden')
-  hiddenInput.setAttribute('name', 'stripeToken')
-  hiddenInput.setAttribute('value', token.id)
-  form.appendChild(hiddenInput)
-  form.submit()
-}
-
 $('form').submit(function () {
   $(this).find('button[type=submit]').prop('disabled', true)
+  setTimeout(function () {
+    $('#ajaxsubmit').prop('disabled', false)
+  }, 3000)
 })

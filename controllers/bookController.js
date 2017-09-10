@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const User = mongoose.model('User')
+// const User = mongoose.model('User')
 // const Community = mongoose.model('Community')
-const Library = mongoose.model('Library')
+// const Library = mongoose.model('Library')
 const Book = mongoose.model('Book')
 
 const confirmOwner = (library, user) => {
@@ -28,4 +28,15 @@ exports.saveNewBook = async (req, res) => {
     req.flash('error', `Nice try, jackass.`)
     res.redirect('/libraries')
   }
+}
+
+exports.saveNewBookQuick = async (req, res) => {
+  // Confirm user owns library before adding a book to it
+  // const isOwner = await confirmOwner(req.body.libraries, req.user)
+  //
+  // if (isOwner === 1) {
+  req.body.owner = req.user._id
+
+  // Create & save new book
+  await (new Book(req.body)).save()
 }

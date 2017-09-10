@@ -2,6 +2,7 @@ extends layout
 
 block content
   +addBookModal()
+  +quickAddBookModal()
   #wrapper
     .content-header
       h1= title
@@ -9,6 +10,8 @@ block content
         ul
           li
             a#addBookModal--trigger Add Book
+          li
+            a#quickAddBookModal--trigger Quick Add Book
     .content-body
       p Private: #{library.private}
       hr
@@ -19,3 +22,4 @@ block content
         hr
               
   script pageVar = '.p-libraries';
+  script(src="/js/bookSearch.js")

@@ -28,6 +28,7 @@ mixin newCommunityModal()
               option(value="true") Private (Invitation only)
             p.helper
               small Choose a way users will join.
+            hr
             button.submit(type="submit") Create Community
             button.ind.ml.cancel(type="button") Cancel
             
@@ -48,11 +49,9 @@ mixin editCommunityModal()
             p.helper
               small Describe the specific local context or community.
             label(for="Location") Location
-            input(type="text" id="address" name="location[address]" placeholder="City, State, Province, or Region" value=(community && community.location.address))
+            input(type="text" value=(community && community.location.address) disabled)
             p.helper
-              small Specify the community's general location.
-            input.hidden(type="text" id="lng" name="location[coordinates][0]" value=(community && community.location.coordinates[0]) hidden)
-            input.hidden(type="text" id="lat" name="location[coordinates][1]" value=(community && community.location.coordinates[1]) hidden)
+              small Communities don't relocate. Location cannot be edited.
             label(for="Admission") Admission
             select(name="private")
               if community && community.private == true
@@ -63,6 +62,7 @@ mixin editCommunityModal()
                 option(value="true") Private (Invitation only)
             p.helper
               small Choose a way users will join.
+            hr
             button.submit(type="submit") Save Changes
             button.ind.ml.cancel(type="button") Cancel
             
@@ -152,6 +152,7 @@ mixin manageAccountModal()
               label(for="card-element") Debit or Credit Card
               #card-element
               #card-errors(role="alert")
+              hr
               button(type="submit") Subscribe Monthly
               button.ml.ind.cancel(type="button") Cancel
             
@@ -181,6 +182,7 @@ mixin forgotPasswordModal()
             input(type="email" name="email")
             p.helper
               small We'll send an email with a link to reset it.
+            hr
             button(type="submit") Reset Password
             button.ind.ml.cancel(type="button") Cancel
             
@@ -202,6 +204,7 @@ mixin newLibraryModal()
               option(value="true") Private (These books are not available in my communities)
             p.helper
               small Should other users see these books?
+            hr
             button.submit(type="submit") Create Library
             button.ind.ml.cancel(type="button") Cancel
             
@@ -220,5 +223,23 @@ mixin addBookModal()
             label(for="Author") Author
             input(type="text" name="author" autocomplete="off" placeholder="Author")
             input(type="hidden" name="libraries" value=`${library._id}`)
+            hr
             button.submit(type="submit") Add Book
             button.ind.ml.cancel(type="button") Cancel
+            
+mixin quickAddBookModal()
+  .modal-wrapper#quickAddBookModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Quick Add a Book
+        .modal-body.community-form
+          .bookSearch
+            form(name="bookSearch" action="" method="GET" autocomplete="off")
+              label(for="Book Search") Book Search
+              input.short.search--input(type="text" name="search")
+              button#ajaxsubmit.short(type="submit")
+                i.fa.fa-search
+              p.helper
+                small Title, author, or description
+            .searchResults

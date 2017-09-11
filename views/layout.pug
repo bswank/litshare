@@ -10,11 +10,14 @@ html
   body
     include ./mixins/modals
     script let pageVar = '';
-    block header
+    
+    block info
       +releaseInfoModal()
       .info-bar#releaseInfoModal--trigger
         .inner
           p LitShare is currently in invite-only #[span.strong Alpha] testing. Click to learn more.
+    
+    block header
       header
         .inner
           span LitShare
@@ -67,6 +70,11 @@ html
             .flash(class=`flash--${category}`) #{message}
     block content
       
+    block footer
+      .version-bar
+        .inner
+          p Version 0.1.0
+
     block scripts
       script(src="https://use.fontawesome.com/eabed3084c.js")
       script(src="https://code.jquery.com/jquery-3.2.1.min.js")

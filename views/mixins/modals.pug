@@ -72,8 +72,8 @@ mixin deleteCommunityModal()
         .modal-body
           p This action cannot be undone. Seriously.
           form(action=`/communities/${community._id}/delete` method="POST")
-            button.neg.nm(type="submit") Delete Community
-            button.ind.cancel.nm.ml(type="button") Cancel
+            button.neg.nm.mt(type="submit") Delete Community
+            button.ind.cancel.mt.nm.ml(type="button") Cancel
             
 mixin leaveCommunityModal()            
   .modal-wrapper#leaveCommunityModal
@@ -84,8 +84,8 @@ mixin leaveCommunityModal()
         .modal-body
           p Do you really want to leave #{community.name}? You can be a part of as many communities as you like for free.
           form(action=`/communities/${community._id}/leave` method="POST")
-            button(type="submit") Leave Community
-            button.ind.cancel.ml(type="button") Cancel
+            button.mt(type="submit") Leave Community
+            button.ind.cancel.ml.mt(type="button") Cancel
             
 mixin editProfileModal()
   .modal-wrapper#editProfileModal
@@ -117,8 +117,8 @@ mixin deleteAccountModal()
         .modal-body
           p This action cannot be undone. Seriously. You'll lose any books in your library and all profile data.
           form(action=`/account/delete` method="POST")
-            button.neg(type="submit") Delete Account
-            button.ind.cancel.ml(type="button") Cancel
+            button.neg.mt(type="submit") Delete Account
+            button.ind.cancel.ml.mt(type="button") Cancel
 
 mixin manageAccountModal()
   .modal-wrapper.manageAccountModal
@@ -237,6 +237,6 @@ mixin releaseInfoModal()
         .modal-header
           h2 Release Information
         .modal-body
-          p Thanks for being willing to test LitShare! Software is typically released in a series of phases, the most common of which being Alpha, Beta, and Stable. #[a(href="https://en.wikipedia.org/wiki/Software_release_life_cycle" target="_blank") Learn more about the software release lifecycle.]
-          p This software is in the #[span.strong Alpha] release cycle. It will likely contain major or minor bugs, and is not yet suitable for sustained use.
-          button.cancel I Understand
+          p LitShare is currently in the #[span.strong Alpha] release cycle. It will likely contain major or minor bugs, and is not yet suitable for sustained use.
+          p #[a(href="https://en.wikipedia.org/wiki/Software_release_life_cycle" target="_blank") Learn more about the software release lifecycle.]
+          button.mt.cancel I Understand

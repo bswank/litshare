@@ -1,32 +1,60 @@
 /* global $, pageVar, google, axios, DOMPurify */
 
-$('.user-menu-toggle').click(function () {
-  if ($('header nav ul li.user.user-notifications-toggle a').hasClass('active')) {
+// .options-toggle
+
+$('.user-menu--toggle').click(function () {
+  if ($('.user-notifications--toggle').hasClass('active') || $('.options--toggle').hasClass('active')) {
     $('.user-notifications').fadeOut(150)
-    $('header nav ul li.user.user-notifications-toggle a').removeClass('active')
+    $('.user-notifications--toggle').removeClass('active')
+    $('.options').fadeOut(150)
+    $('.options--toggle').removeClass('active')
   }
   $('.user-menu').fadeToggle(150)
-  $('header nav ul li.user.user-menu-toggle a').toggleClass('active')
+  $('.user-menu--toggle').toggleClass('active')
 })
 
 $('#wrapper').click(function () {
   $('.user-menu').fadeOut(150)
-  $('header nav ul li.user.user-menu-toggle a').removeClass('active')
+  $('.user-menu--toggle').removeClass('active')
 })
 
-$('.user-notifications-toggle').click(function () {
-  if ($('header nav ul li.user.user-menu-toggle a').hasClass('active')) {
+$('.user-notifications--toggle').click(function () {
+  if ($('.user-menu--toggle').hasClass('active') || $('.options--toggle').hasClass('active')) {
     $('.user-menu').fadeOut(150)
-    $('header nav ul li.user.user-menu-toggle a').removeClass('active')
+    $('.user-menu--toggle').removeClass('active')
   }
   $('.user-notifications').fadeToggle(150)
-  $('header nav ul li.user.user-notifications-toggle a').toggleClass('active')
+  $('.user-notifications--toggle').toggleClass('active')
+  $('.options').fadeOut(150)
+  $('.options--toggle').removeClass('active')
 })
 
 $('#wrapper').click(function () {
   $('.user-notifications').fadeOut(150)
-  $('header nav ul li.user.user-notifications-toggle a').removeClass('active')
+  $('.user-notifications--toggle').removeClass('active')
 })
+
+$('.options--toggle').click(function () {
+  if ($('.user-notifications--toggle').hasClass('active') || $('.user-menu--toggle').hasClass('active')) {
+    $('.user-menu').fadeOut(150)
+    $('.user-menu--toggle').removeClass('active')
+    $('.user-notifications').fadeOut(150)
+    $('.user-notifications--toggle').removeClass('active')
+  }
+  $('.options').fadeToggle(150)
+  $('.options--toggle').toggleClass('active')
+})
+
+$('#wrapper').click(function () {
+  $('.options').fadeOut(150)
+  $('.options--toggle').removeClass('active')
+})
+
+$('.options--toggle').click(function (e) {
+  e.stopPropagation()
+})
+
+// ----
 
 $('.flash').delay('100').fadeIn().delay('6000').fadeOut()
 

@@ -35,8 +35,8 @@ html
                   a.p-libraries(href="/libraries/") Libraries
                 li
                   a.p-communities(href="/communities/") Communities
-                li.user.user-menu-toggle
-                  a= user.name
+                li.user
+                  a.user-menu--toggle= user.name
                     i.fa.fa-chevron-down.user-name-arrow
                   .user-menu
                     .box-triangle
@@ -50,8 +50,8 @@ html
                       li
                         a(href="/logout") Log Out
                           i.fa.fa-sign-out
-                li.user.user-notifications-toggle
-                  a
+                li.user
+                  a.user-notifications--toggle
                     i.fa.fa-bell-o.user-notifications-bell
                   .user-notifications
                     .box-triangle

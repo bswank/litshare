@@ -63,8 +63,8 @@ body {
 	position: relative;
 	line-height: 1;
 	min-height: 100%;
-	background-color: #fafafa;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23f1f1f1' fill-opacity='.65'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 72h40v4H0v-4zm0-8h31v4H0v-4zm20-16h20v4H20v-4zM0 56h40v4H0v-4zm63-25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM53 41a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-30 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-28-8a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zM56 5a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zm-3 46a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 0l5 20H16l5-20zm43 64v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zM36 13h4v4h-4v-4zm4 4h4v4h-4v-4zm-4 4h4v4h-4v-4zm8-8h4v4h-4v-4z'/%3E%3C/g%3E%3C/svg%3E");
+	/*background-color: #fafafa;*/
+	/*background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23f1f1f1' fill-opacity='.65'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 72h40v4H0v-4zm0-8h31v4H0v-4zm20-16h20v4H20v-4zM0 56h40v4H0v-4zm63-25a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM53 41a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-30 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-28-8a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zM56 5a5 5 0 0 0-10 0h10zm10 0a5 5 0 0 1-10 0h10zm-3 46a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM21 0l5 20H16l5-20zm43 64v-4h-4v4h-4v4h4v4h4v-4h4v-4h-4zM36 13h4v4h-4v-4zm4 4h4v4h-4v-4zm-4 4h4v4h-4v-4zm8-8h4v4h-4v-4z'/%3E%3C/g%3E%3C/svg%3E");*/
 }
 
 a, p, li, h1, h2, h3, h4, h5, h6, input, textarea, button, span, div, pre, code, select {
@@ -155,7 +155,7 @@ header nav ul li.user .user-notifications {
 	width: auto;
 	box-shadow: 0px 2px 2px #eee;
 	background-color: #fff;
-	border-radius: 2px;
+	border-radius: 3px;
 	position: absolute;
 	right: 10px;
 	z-index: 999;
@@ -261,6 +261,10 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	width: 100%;
 	max-width: 1200px;
 	overflow: auto;
+	/*background-color: #fafafa;*/
+	border-radius: 3px;
+	/*padding: 5px 25px;*/
+	overflow: visible;
 }
 
 .content-header h1 {
@@ -283,24 +287,61 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	display: inline-block;
 	font-size: 14px;
 	font-weight: 400;
-	padding: 15px;
+	padding: 10px;
+	margin-left: 10px;
 	color: rgba(3, 83, 164, .7);
-	transition: color .2s;
+	border-radius: 3px;
+	transition: all .2s;
 }
 
-.content-menu ul li a:hover {
+.content-menu ul li a:hover,
+.options--toggle.active {
 	color: rgba(3, 83, 164, 1);
+	/*border: 1px solid rgba(3, 83, 164, 1);*/
 }
 
 .content-menu ul li a.current {
 	color: rgba(3, 83, 164, 1);
 }
 
-.content-body {
-	padding: 25px 25px 25px 25px;
-	box-shadow: 0px 0px 3px #ddd;
+.options--toggle {
+	user-select: none;
+}
+
+.content-menu ul.options {
+	display: none;
+	position: absolute;
+	right: 0;
+	width: 250px;
+	z-index: 999;
 	background-color: #fff;
-	border-radius: 2px;
+	border-radius: 3px;
+	box-shadow: 0px 1px 2px #ccc;
+}
+
+.content-menu ul.options li {
+	display: block;
+}
+
+.content-menu ul.options li a {
+	display: block;
+	padding: 15px;
+	margin-left: 0;
+	display: block;
+	padding: 15px 20px;
+	transition: all .2s;
+	font-size: 14px;
+	border-top: 1px solid #f1f1f1;
+}
+
+.content-menu ul.options li a:hover {
+	background-color: #fafafa;
+}
+
+.content-body {
+	padding: 25px 0 0 0;
+	background-color: #fff;
+	border-radius: 3px;
 	margin: auto;
 	width: 100%;
 	max-width: 1200px;
@@ -421,7 +462,7 @@ hr {
 button {
 	display: inline-block;
 	border: none;
-	border-radius: 2px;
+	border-radius: 3px;
 	background-color: rgba(3, 83, 164, .9);
 	color: #fff;
 	font-size: 14px;
@@ -490,7 +531,7 @@ button.amt {
 	margin: 25px auto 0 auto;
 	text-align: center;
 	cursor: pointer;
-	border-radius: 2px;
+	border-radius: 3px;
 	box-shadow: 0px 0px 3px #bbb;
 	display: none;
 }
@@ -535,7 +576,7 @@ button.amt {
 	background-color: #fff;
 	z-index: 1000;
 	box-shadow: 0px 0px 3px #222;
-	border-radius: 2px;
+	border-radius: 3px;
 	overflow: scroll;
 	max-height: calc(100vh - 20px);
 	margin: 10px;
@@ -585,7 +626,7 @@ textarea {
 	font-size: 14px;
 	margin-top: 5px;
 	border: 1px solid #ccc;
-	border-radius: 2px;
+	border-radius: 3px;
 	resize: none;
 	-webkit-appearance: none;
 	background-color: #fff;
@@ -636,7 +677,7 @@ input + button,
 	display: block;
 	padding: 10px 5px;
 	border-bottom: 1px solid #f1f1f1;
-	border-radius: 2px;
+	border-radius: 3px;
 }
 
 .searchResults .search--result:last-of-type {
@@ -654,7 +695,7 @@ input + button,
 .book-suggestion {
 	padding: 10px 0 10px 0;
 	border-bottom: 1px solid #f1f1f1;
-	border-radius: 2px;
+	border-radius: 3px;
 	overflow: auto;
 }
 
@@ -696,7 +737,7 @@ input + button,
 }
 
 .version-bar {
-	padding: 0 40px 25px 25px;
+	padding: 0 25px 25px 25px;
 }
 
 .version-bar .inner {
@@ -710,7 +751,7 @@ input + button,
 	margin: 0;
 	display: inline-block;
 	font-size: 12px;
-	opacity: .3;
+	opacity: .2;
 }
 
 /* Stripe Test */
@@ -722,7 +763,7 @@ input + button,
 	font-size: 14px;
 	margin-top: 5px;
 	border: 1px solid #ccc;
-	border-radius: 2px;
+	border-radius: 3px;
 	resize: none;
 	-webkit-appearance: none;
 	background-color: #fff;

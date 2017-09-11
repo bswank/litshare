@@ -8,13 +8,17 @@ block content
       .content-menu
         ul
           li
-            a(href="/communities/") My Communities
-          li
-            a(href="/communities/all") All Communities
-          li
-            a(href="/communities/search") Find Communities
-          li
-            a#createCommunityModal--trigger Create a Community
+            a.options--toggle Options
+            ul.options
+              li
+                a(href="/communities/") My Communities
+              li
+                a(href="/communities/all") All Communities
+              li
+                a(href="/communities/search") Find Communities
+              li
+                a#createCommunityModal--trigger Create a Community
+          
       .clear
     .content-body
       .communities

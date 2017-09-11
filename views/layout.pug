@@ -11,6 +11,10 @@ html
     include ./mixins/modals
     script let pageVar = '';
     block header
+      +releaseInfoModal()
+      .info-bar#releaseInfoModal--trigger
+        .inner
+          p LitShare is currently in invite-only #[span.strong Alpha] testing. Click to learn more.
       header
         .inner
           span LitShare

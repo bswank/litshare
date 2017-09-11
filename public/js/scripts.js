@@ -137,6 +137,13 @@ function typeAhead (search) {
 
 typeAhead(document.querySelector('.search'))
 
+// Modal Triggers
+
+$('#releaseInfoModal--trigger').click(function () {
+  $('#releaseInfoModal').fadeIn('fast')
+  $('body').addClass('no-scroll')
+})
+
 $('#createCommunityModal--trigger').click(function () {
   $('#createCommunityModal').fadeIn('fast')
   $('body').addClass('no-scroll')

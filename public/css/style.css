@@ -321,11 +321,18 @@ p {
 	max-width: 700px;
 }
 
+p a {
+	display: inline;
+	color: inherit;
+	text-decoration: underline;
+}
+
 small {
 	font-size: 11px;
 }
 
-strong {
+strong,
+.strong {
 	font-weight: bold;
 }
 
@@ -668,6 +675,24 @@ input + button,
 
 .book-suggestion:last-child {
 	border-bottom: none;
+}
+
+.info-bar {
+	padding: 10px 25px;
+	background-color: #f9e784;
+	cursor: pointer;
+}
+
+.info-bar .inner {
+	max-width: 1200px;
+	margin: auto;
+	text-align: center;
+}
+
+.info-bar p {
+	max-width: 100%;
+	font-size: 13px;
+	color: #323b4d;
 }
 
 /* Stripe Test */

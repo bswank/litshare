@@ -6,7 +6,6 @@ mixin newCommunityModal()
           h2 Create a Community
         .modal-body.community-form
           p Be specific and unique. Remember, LitShare Communities are based on real-life communities.
-          hr
           form(action=`/communities/new` method="POST")
             label(for="Name") Name
             input(type="text" name="name" autocomplete="off" placeholder="Community Name")
@@ -28,7 +27,6 @@ mixin newCommunityModal()
               option(value="true") Private (Invitation only)
             p.helper
               small Choose a way users will join.
-            hr
             button.submit(type="submit") Create Community
             button.ind.ml.cancel(type="button") Cancel
             
@@ -62,7 +60,6 @@ mixin editCommunityModal()
                 option(value="true") Private (Invitation only)
             p.helper
               small Choose a way users will join.
-            hr
             button.submit(type="submit") Save Changes
             button.ind.ml.cancel(type="button") Cancel
             
@@ -74,7 +71,6 @@ mixin deleteCommunityModal()
           h2 Please Conifrm
         .modal-body
           p This action cannot be undone. Seriously.
-          hr
           form(action=`/communities/${community._id}/delete` method="POST")
             button.neg.nm(type="submit") Delete Community
             button.ind.cancel.nm.ml(type="button") Cancel
@@ -87,7 +83,6 @@ mixin leaveCommunityModal()
           h2 Please Confirm
         .modal-body
           p Do you really want to leave #{community.name}? You can be a part of as many communities as you like for free.
-          hr
           form(action=`/communities/${community._id}/leave` method="POST")
             button(type="submit") Leave Community
             button.ind.cancel.ml(type="button") Cancel
@@ -121,7 +116,6 @@ mixin deleteAccountModal()
           h2 Please Conifrm
         .modal-body
           p This action cannot be undone. Seriously. You'll lose any books in your library and all profile data.
-          hr
           form(action=`/account/delete` method="POST")
             button.neg(type="submit") Delete Account
             button.ind.cancel.ml(type="button") Cancel
@@ -135,7 +129,6 @@ mixin manageAccountModal()
             h2 Update your Debit or Credit Card
           .modal-body
             p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            hr
             form(action="/plan-management/update-card" method="POST" id="payment-form")
               label(for="card-element") New Debit or Credit Card
               #card-element
@@ -147,12 +140,10 @@ mixin manageAccountModal()
             h2 Upgrade to LitShare Pro
           .modal-body
             p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            hr
             form(action="/plan-management/upgrade-account" method="POST" id="payment-form")
               label(for="card-element") Debit or Credit Card
               #card-element
               #card-errors(role="alert")
-              hr
               button(type="submit") Subscribe Monthly
               button.ml.ind.cancel(type="button") Cancel
             
@@ -164,7 +155,6 @@ mixin downgradeAccountModal()
           h2 Downgrade from LitShare Pro
         .modal-body
           p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          hr
           form(action="/plan-management/downgrade-account" method="POST" id="payment-form")
             button.neg(type="submit") Cancel Subscription
             button.ml.ind.cancel(type="button") Cancel
@@ -182,7 +172,6 @@ mixin forgotPasswordModal()
             input(type="email" name="email")
             p.helper
               small We'll send an email with a link to reset it.
-            hr
             button(type="submit") Reset Password
             button.ind.ml.cancel(type="button") Cancel
             
@@ -204,7 +193,6 @@ mixin newLibraryModal()
               option(value="true") Private (These books are not available in my communities)
             p.helper
               small Should other users see these books?
-            hr
             button.submit(type="submit") Create Library
             button.ind.ml.cancel(type="button") Cancel
             
@@ -223,7 +211,6 @@ mixin addBookModal()
             label(for="Author") Author
             input(type="text" name="author" autocomplete="off" placeholder="Author")
             input(type="hidden" name="libraries" value=`${library._id}`)
-            hr
             button.submit(type="submit") Add Book
             button.ind.ml.cancel(type="button") Cancel
             
@@ -243,3 +230,13 @@ mixin quickAddBookModal()
               p.helper
                 small Title, author, or description
             .searchResults
+mixin releaseInfoModal()            
+  .modal-wrapper#releaseInfoModal
+    .modal-container
+      .modal
+        .modal-header
+          h2 Release Information
+        .modal-body
+          p Thanks for being willing to test LitShare! Software is typically released in a series of phases, the most common of which being Alpha, Beta, and Stable. #[a(href="https://en.wikipedia.org/wiki/Software_release_life_cycle" target="_blank") Learn more about the software release lifecycle.]
+          p This software is in the #[span.strong Alpha] release cycle. It will likely contain major or minor bugs, and is not yet suitable for sustained use.
+          button.cancel I Understand

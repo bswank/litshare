@@ -288,10 +288,19 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	font-size: 14px;
 	font-weight: 400;
 	padding: 10px;
-	margin-left: 10px;
 	color: rgba(3, 83, 164, .7);
+	border: 1px solid rgba(3, 83, 164, .7);
 	border-radius: 3px;
 	transition: all .2s;
+}
+
+.content-menu ul li a.no-right-border {
+	border-right: none;
+	border-radius: 3px 0 0 3px;
+}
+
+.content-menu ul li a.no-left-border-radius {
+	border-radius: 0 3px 3px 0;
 }
 
 .content-menu ul li a:hover,
@@ -312,7 +321,7 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	display: none;
 	position: absolute;
 	right: 0;
-	width: 250px;
+	width: 192px;
 	z-index: 999;
 	background-color: #fff;
 	border-radius: 3px;
@@ -328,10 +337,11 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	padding: 15px;
 	margin-left: 0;
 	display: block;
-	padding: 15px 20px;
+	padding: 15px 10px;
 	transition: all .2s;
 	font-size: 14px;
 	border-top: 1px solid #f1f1f1;
+	border: none;
 }
 
 .content-menu ul.options li a:hover {

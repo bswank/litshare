@@ -8,16 +8,15 @@ block content
       .content-menu
         ul
           li
-            a.options--toggle Options
+            a.no-right-border#createCommunityModal--trigger(href="#") Create a Community
+          li
+            a.no-left-border-radius.options--toggle
+              i.fa.fa-chevron-down
             ul.options
               li
                 a(href="/communities/") My Communities
               li
-                a(href="/communities/all") All Communities
-              li
                 a(href="/communities/search") Find Communities
-              li
-                a#createCommunityModal--trigger Create a Community
           
       .clear
     .content-body

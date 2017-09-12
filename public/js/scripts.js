@@ -54,8 +54,6 @@ $('.options--toggle').click(function (e) {
   e.stopPropagation()
 })
 
-// ----
-
 $('.flash').delay('100').fadeIn().delay('6000').fadeOut()
 
 $('.flash').click(function () {

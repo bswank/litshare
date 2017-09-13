@@ -29,7 +29,7 @@ const communitySchema = new mongoose.Schema({
       required: 'Location is required.'
     },
     coordinates: [{
-      type: Number,
+      type: Number
     }]
   },
   admin: [{
@@ -37,25 +37,25 @@ const communitySchema = new mongoose.Schema({
     ref: 'User',
     required: true
   }]
-});
+})
 
 communitySchema.index({
   name: 'text',
   description: 'text'
-});
+})
 
 communitySchema.index({
   location: '2dsphere'
-});
+})
 
 // Make sure slug is equal to the name of the community
-communitySchema.pre('save', function(next) {
+communitySchema.pre('save', function (next) {
   if (!this.isModified('name')) {
-    next();
+    next()
     return // stop this from running
   }
-  this.slug = slug(this.name);
-  next();
-});
+  this.slug = slug(this.name)
+  next()
+})
 
-module.exports = mongoose.model('Community', communitySchema);
+module.exports = mongoose.model('Community', communitySchema)

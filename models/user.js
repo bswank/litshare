@@ -51,7 +51,8 @@ const userSchema = new Schema({
   stripeCustomer: String,
   stripeSubscription: String,
   permissions: Number, // 10 - User, 20 Admin
-  plan: Number // 10 - Default, 20 - Pro
+  plan: Number, // 10 - Default, 20 - Pro
+  onboardingFinished: Boolean
 })
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' })

@@ -6,9 +6,9 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "prod": "node ./start.js",
+    "start": "node ./start.js",
     "watch": "nodemon -e js ./start.js",
-    "start": "concurrently \"npm run watch\" --names \", \" --prefix name"
+    "dev": "concurrently \"npm run watch\" --names \", \" --prefix name"
   },
   "browserslist": "last 2 versions",
   "dependencies": {

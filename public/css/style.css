@@ -260,10 +260,7 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	margin: auto;
 	width: 100%;
 	max-width: 1200px;
-	overflow: auto;
-	/*background-color: #fafafa;*/
 	border-radius: 3px;
-	/*padding: 5px 25px;*/
 	overflow: visible;
 }
 
@@ -356,6 +353,7 @@ header nav ul li.user .user-notifications ul li:last-of-type a {
 	width: 100%;
 	max-width: 1200px;
 	overflow: auto;
+	clear: both;
 }
 
 p {
